@@ -1,6 +1,6 @@
 # restonest
 
-A new Flutter project.
+Restonest - flutter project to show restaurants list and detail, part of study case that learned at Belajar Fundamental Aplikasi Flutter by Dicoding Indonesia
 
 ## Getting Started
 
