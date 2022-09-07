@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:restonest/common/styles.dart';
 import 'package:restonest/data/api/api_service.dart';
 import 'package:restonest/presentation/search_page.dart';
-import 'package:restonest/presentation/widgets/build_list.dart';
 import 'package:restonest/presentation/widgets/item_list.dart';
 import 'package:restonest/provider/restaurants_provider.dart';
 
