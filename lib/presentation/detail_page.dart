@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restonest/common/styles.dart';
+import 'package:restonest/data/api/api_service.dart';
+import 'package:restonest/data/model/detail_restaurants.dart';
+import 'package:restonest/provider/detail_provider.dart';
 
 import '../data/model/restaurants.dart';
 
 class DetailPage extends StatelessWidget {
   static const routeName = '/detail_page';
-  
-  final Restaurants restaurants;
-
-  const DetailPage({Key? key, required this.restaurants}) : super(key: key);
+  final DetailArguments args;
+  const DetailPage({Key? key, required this.args}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text(restaurants.name),
+        title: Text(args.nameRestaurant),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white,),
           onPressed: (){
@@ -23,7 +26,29 @@ class DetailPage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: ChangeNotifierProvider<DetailProvider>(
+          create: (_) => DetailProvider(apiService: ApiService(), id: args.idRestaurant),
+          child: const BuildDetail(),
+        )
+      ),
+    );
+  }
+}
+
+class BuildDetail extends StatelessWidget {
+
+  
+  const BuildDetail({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<DetailProvider>(
+      builder: (context, state, _) {
+        if (state.state == ResultState.loading) {
+          return const Center(child: CircularProgressIndicator(),);
+        } else if (state.state == ResultState.hasData) {
+          var restaurants = state.detail.restaurant;
+          return SingleChildScrollView(
           child: Padding(padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -31,7 +56,7 @@ class DetailPage extends StatelessWidget {
                 Hero(
                   tag: restaurants.pictureId,
                   child: Image.network(
-                      restaurants.pictureId,
+                      'https://restaurant-api.dicoding.dev/images/medium/${restaurants.pictureId}',
                       fit: BoxFit.cover,
                   ),
                 ),
@@ -141,8 +166,28 @@ class DetailPage extends StatelessWidget {
               ],
             ),
           )
-        )
-      ),
+        );
+        } else if (state.state == ResultState.error) {
+          return Center(
+                child: Material(
+                  child: Text(state.message),
+                ),
+              );
+        } else {
+          return Center(
+                child: Material(
+                  child: Text(state.message),
+                ),
+              );
+        }
+      },
     );
   }
+}
+
+class DetailArguments {
+  final String nameRestaurant;
+  final String idRestaurant;
+
+  DetailArguments(this.nameRestaurant, this.idRestaurant);
 }

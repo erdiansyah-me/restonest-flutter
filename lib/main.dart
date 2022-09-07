@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:restonest/common/styles.dart';
-import 'package:restonest/data/model/restaurants.dart';
 import 'package:restonest/presentation/detail_page.dart';
 import 'package:restonest/presentation/home_page.dart';
+import 'package:restonest/presentation/search_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +26,9 @@ class MyApp extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName:(context) => const HomePage(),
+        SearchPage.routeName:(context) => const SearchPage(),
         DetailPage.routeName:(context) => DetailPage(
-          restaurants: ModalRoute.of(context)?.settings.arguments as Restaurants,
+          args: ModalRoute.of(context)?.settings.arguments as DetailArguments,
         )
       },
     );
