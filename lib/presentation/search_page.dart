@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restonest/common/styles.dart';
@@ -22,7 +21,7 @@ class _SearchPageState extends State<SearchPage> {
       create: (_) => SearchProvider(apiService: ApiService()),
       child: Scaffold(
       appBar: AppBar(
-        title: Text('Search Restoran'),
+        title: const Text('Search Restoran'),
       ),
       body:  Column(
         children: [
@@ -53,7 +52,7 @@ class _SearchPageState extends State<SearchPage> {
                       onPressed: () {
                         context.read<SearchProvider>().fetchSearchRestaurants(_searchTextController.text);
                       }, 
-                      icon: Icon(Icons.search)
+                      icon: const Icon(Icons.search)
                     );
                   }
                 ),
