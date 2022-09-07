@@ -102,4 +102,10 @@ class _SearchPageState extends State<SearchPage> {
           }
         );
   }
+
+  @override
+  void dispose() {
+    _searchTextController.dispose();
+    super.dispose();
+  }
 }
