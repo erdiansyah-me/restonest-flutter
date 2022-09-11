@@ -1,20 +1,29 @@
 import 'package:flutter/widgets.dart';
 import 'package:restonest/data/api/api_service.dart';
 import 'package:restonest/data/model/detail_restaurants.dart';
+import 'package:restonest/provider/result_state.dart';
 
-enum ResultState { loading, noData, hasData, error}
 
 class DetailProvider extends ChangeNotifier {
   final ApiService apiService;
-  final String id;
 
-  DetailProvider({required this.apiService, required this.id}){
-    _fetchDetailRestaurant(id);
-  }
-  
+  DetailProvider({required this.apiService});
+
   late DetailResult _detailResult;
   late ResultState _state;
   String _message = '';
+
+  String _idResto = "";
+
+  set idResto(String newId) {
+    if (_idResto != newId) {
+      _idResto = newId;
+      //load detailnya dari backend
+      _fetchDetailRestaurant(_idResto);
+    }
+  }
+
+  String get idResto => _idResto;
 
   DetailResult get detail => _detailResult;
 

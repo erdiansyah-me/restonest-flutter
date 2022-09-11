@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:restonest/common/styles.dart';
 import 'package:restonest/data/api/api_service.dart';
 import 'package:restonest/presentation/widgets/item_list.dart';
+import 'package:restonest/provider/result_state.dart';
 import 'package:restonest/provider/search_provider.dart';
 
 class SearchPage extends StatefulWidget {
@@ -105,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
-    _searchTextController.dispose();
+    _searchTextController.dispose(); 
     super.dispose();
   }
 }

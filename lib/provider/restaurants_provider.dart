@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:restonest/data/api/api_service.dart';
 import 'package:restonest/data/model/restaurants.dart';
-
-enum ResultState { loading, noData, hasData, error}
+import 'package:restonest/provider/result_state.dart';
 
 class RestaurantsProvider extends ChangeNotifier {
   final ApiService apiService;

@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.0 <=3.3.0"
+  sdk: ">=2.18.0 <=3.3.1"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -39,6 +39,12 @@ dependencies:
   flutter_native_splash: ^2.2.8
   http: ^0.13.3
   provider: ^6.0.0
+  sqflite: ^2.0.2
+  intl: ^0.17.0
+  android_alarm_manager_plus: ^2.0.6+1
+  flutter_local_notifications: ^9.9.1
+  rxdart: ^0.27.5
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
