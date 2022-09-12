@@ -11,51 +11,49 @@ class FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DatabaseProvider>(
-      builder: (context, state, _){
-        return Scaffold(
-            appBar: AppBar(
-              title: const Text('Favorite RestoNest'),
-            ),
-            backgroundColor: primaryColor,
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: buildList(context, state),
-            ));
-      }
-    );
+    return Consumer<DatabaseProvider>(builder: (context, state, _) {
+      return Scaffold(
+          appBar: AppBar(
+            title: const Text('Favorite RestoNest'),
+          ),
+          backgroundColor: primaryColor,
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: buildList(context, state),
+          ));
+    });
   }
 
   Widget buildList(BuildContext context, DatabaseProvider state) {
-      if (state.state == ResultState.loading) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      } else if (state.state == ResultState.hasData) {
-        return ListView.builder(
-            itemCount: state.favorites.length,
-            itemBuilder: (context, index) {
-              var restaurant = state.favorites[index];
-              return ItemList(restaurants: restaurant);
-            });
-      } else if (state.state == ResultState.noData) {
-        return Center(
-          child: Material(
-            child: Text(state.message),
-          ),
-        );
-      } else if (state.state == ResultState.error) {
-        return Center(
-          child: Material(
-            child: Text(state.message),
-          ),
-        );
-      } else {
-        return Center(
-          child: Material(
-            child: Text(state.message),
-          ),
-        );
-      }
+    if (state.state == ResultState.loading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else if (state.state == ResultState.hasData) {
+      return ListView.builder(
+          itemCount: state.favorites.length,
+          itemBuilder: (context, index) {
+            var restaurant = state.favorites[index];
+            return ItemList(restaurants: restaurant);
+          });
+    } else if (state.state == ResultState.noData) {
+      return Center(
+        child: Material(
+          child: Text(state.message),
+        ),
+      );
+    } else if (state.state == ResultState.error) {
+      return Center(
+        child: Material(
+          child: Text(state.message),
+        ),
+      );
+    } else {
+      return Center(
+        child: Material(
+          child: Text(state.message),
+        ),
+      );
+    }
   }
 }

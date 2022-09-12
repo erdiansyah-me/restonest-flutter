@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restonest/common/navigation.dart';
 import 'package:restonest/data/api/api_service.dart';
 import 'package:restonest/data/model/restaurants.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:http/http.dart' as http;
 
 final notifSubject = BehaviorSubject<String>();
 
@@ -37,7 +39,9 @@ class NotifHelper {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? payload) async {
       if (payload != null) {
-        print('notif payload$payload');
+        if (kDebugMode) {
+          print('notif payload$payload');
+        }
       }
       notifSubject.add(payload ?? 'empty payload');
     });
@@ -49,7 +53,7 @@ class NotifHelper {
     var channelName = 'restorand_01';
     var channelDesc = 'RestoNest Random Channel';
 
-    var restoList = await ApiService().allRestaurants();
+    var restoList = await ApiService().fetchAllRestaurants(http.Client());
     var restoRandList = restoList.restaurants.toList();
 
     var randIndex = Random().nextInt(restoRandList.length);
@@ -79,11 +83,10 @@ class NotifHelper {
   }
 
   void configureNotifSubject(String route) {
-    notifSubject.stream.listen(
-      (payload) {
-        var data = Restaurant.fromJson(json.decode(payload));
-        var restaurant = data.id;
-        Navigation.intentWithData(route, restaurant);
-      });
+    notifSubject.stream.listen((payload) {
+      var data = Restaurant.fromJson(json.decode(payload));
+      var restaurant = data.id;
+      Navigation.intentWithData(route, restaurant);
+    });
   }
 }

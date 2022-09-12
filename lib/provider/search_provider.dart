@@ -2,12 +2,13 @@ import 'package:flutter/widgets.dart';
 import 'package:restonest/data/api/api_service.dart';
 import 'package:restonest/data/model/restaurants.dart';
 import 'package:restonest/provider/result_state.dart';
+import 'package:http/http.dart' as http;
 
 class SearchProvider extends ChangeNotifier {
   final ApiService apiService;
 
   SearchProvider({required this.apiService});
-  
+
   SearchResult? _searchResult;
   ResultState _state = ResultState.initialState;
   String _message = '';
@@ -22,7 +23,8 @@ class SearchProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final restaurant = await apiService.searchRestaurants(query);
+      final restaurant =
+          await apiService.fetchSearchRestaurants(query, http.Client());
       if (restaurant.restaurants.isEmpty) {
         _state = ResultState.noData;
         notifyListeners();

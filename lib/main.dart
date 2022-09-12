@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:restonest/common/navigation.dart';
 import 'package:restonest/common/styles.dart';
 import 'package:restonest/data/notification/background_service.dart';
 import 'package:restonest/data/notification/notif_helper.dart';
@@ -62,21 +63,18 @@ class MyApp extends StatelessWidget {
           create: (_) => DetailProvider(apiService: ApiService()),
         ),
         ChangeNotifierProvider<ScheduleProvider>(
-          create: (_) => ScheduleProvider()
-        ),
+            create: (_) => ScheduleProvider()),
         ChangeNotifierProvider<PrefsProvider>(
-          create: (_) => PrefsProvider(
-            prefsHelper: PrefsHelper(
-              sharedPrefs: SharedPreferences.getInstance()
-            )
-          )
-        ),
+            create: (_) => PrefsProvider(
+                prefsHelper:
+                    PrefsHelper(sharedPrefs: SharedPreferences.getInstance()))),
       ],
       child: MaterialApp(
         title: 'RESTONEST',
         theme: ThemeData(
           primarySwatch: createMaterialColor(themeColor),
         ),
+        navigatorKey: navigatorGlobalKey,
         initialRoute: HomePage.routeName,
         routes: {
           HomePage.routeName: (context) => const HomePage(),

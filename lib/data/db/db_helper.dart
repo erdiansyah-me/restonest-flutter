@@ -21,10 +21,8 @@ class DbHelper {
 
   Future<Database> _initializeDb() async {
     var path = await getDatabasesPath();
-    var db = openDatabase(
-      '$path/restonest.db',
-      onCreate: (db, version) async {
-        await db.execute('''CREATE TABLE $_favorite(
+    var db = openDatabase('$path/restonest.db', onCreate: (db, version) async {
+      await db.execute('''CREATE TABLE $_favorite(
           id TEXT PRIMARY KEY,
           name TEXT,
           description TEXT,
@@ -32,9 +30,7 @@ class DbHelper {
           city TEXT,
           rating float
         )''');
-      },
-      version: 1
-    );
+    }, version: 1);
     return db;
   }
 

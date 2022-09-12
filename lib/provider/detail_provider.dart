@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:restonest/data/api/api_service.dart';
 import 'package:restonest/data/model/detail_restaurants.dart';
 import 'package:restonest/provider/result_state.dart';
-
+import 'package:http/http.dart' as http;
 
 class DetailProvider extends ChangeNotifier {
   final ApiService apiService;
@@ -35,7 +35,8 @@ class DetailProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final restaurant = await apiService.detailRestaurants(id);
+      final restaurant =
+          await apiService.fetchDetailRestaurants(id, http.Client());
       if (restaurant.error == true) {
         _state = ResultState.error;
         notifyListeners();

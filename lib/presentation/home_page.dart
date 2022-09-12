@@ -20,16 +20,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-
-    final NotifHelper _notifHelper = NotifHelper();
+  late NotifHelper notifHelper = NotifHelper();
 
     @override
     void initState() {
       super.initState();
-      _notifHelper.configureNotifSubject(DetailPage.routeName);
+      notifHelper.configureNotifSubject(DetailPage.routeName);
     }
+  @override
+  Widget build(BuildContext context) {
 
     return Scaffold(
         appBar: AppBar(

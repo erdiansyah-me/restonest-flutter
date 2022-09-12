@@ -1,5 +1,6 @@
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:restonest/data/notification/notif_helper.dart';
 import 'package:restonest/main.dart';
 
@@ -24,7 +25,9 @@ class BackgroundService {
   }
 
   static Future<void> callback() async {
-    print('alarm launch');
+    if (kDebugMode) {
+      print('alarm launch');
+    }
     final NotifHelper notifHelper = NotifHelper();
     await notifHelper.showNotif(flutterLocalNotificationsPlugin);
     _uiSendPort ??= IsolateNameServer.lookupPortByName(_isolateName);

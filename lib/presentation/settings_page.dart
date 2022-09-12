@@ -13,25 +13,21 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Settings'),
       ),
-      body: Consumer<PrefsProvider>(
-        builder: (context, provider, child) {
-          return ListView(
-            children: [
-              Consumer<ScheduleProvider>(
-                builder: (context, scheduled, _) {
-                  return SwitchListTile.adaptive(
-                    title: const Text('Notifications'),
-                    value: provider.isDailyNotifEnabled, 
-                    onChanged: (value) async {
-                      scheduled.scheduledNotif(value);
-                      provider.enableDailyNotif(value);
-                    });
-                }
-              )
-            ],
-          );
-        }
-      ),
+      body: Consumer<PrefsProvider>(builder: (context, provider, child) {
+        return ListView(
+          children: [
+            Consumer<ScheduleProvider>(builder: (context, scheduled, _) {
+              return SwitchListTile.adaptive(
+                  title: const Text('Notifications'),
+                  value: provider.isDailyNotifEnabled,
+                  onChanged: (value) async {
+                    scheduled.scheduledNotif(value);
+                    provider.enableDailyNotif(value);
+                  });
+            })
+          ],
+        );
+      }),
     );
   }
 }
