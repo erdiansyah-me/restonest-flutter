@@ -14,7 +14,7 @@ class FavoritePage extends StatelessWidget {
     return Consumer<DatabaseProvider>(builder: (context, state, _) {
       return Scaffold(
           appBar: AppBar(
-            title: const Text('Favorite RestoNest'),
+            title: const Text('Favorite Restauran'),
           ),
           backgroundColor: primaryColor,
           body: Padding(
