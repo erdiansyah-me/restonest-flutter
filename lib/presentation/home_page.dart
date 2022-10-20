@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('RESTONEST'),
+          title: const Text('RestoNEST'),
           actions: [
             IconButton(
               onPressed: () {
